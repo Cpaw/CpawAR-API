@@ -10,7 +10,11 @@ services:
     expose:
       - 5432
   api:
-    build: ./AiCompServer
+    build:
+      context: ./AiCompServer
+      args:
+        DBHOST: db
+        HOST : 0.0.0.0
     container_name: aicomp
     environment:
       DBHOST: db
