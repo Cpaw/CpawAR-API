@@ -16,9 +16,12 @@ services:
         DBHOST: db
         HOST : 0.0.0.0
     container_name: aicomp
+    volumes:
+      - ./correct/:/correct/
     environment:
       DBHOST: db
       HOST: 0.0.0.0
+      ANSWERFILE: /correct/challenge
     command: ["./run.sh"]
     ports:
       - 9900:9000
