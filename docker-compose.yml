@@ -9,22 +9,45 @@ services:
       POSTGRES_PASSWORD: yatuhashi-api
     expose:
       - 5432
+  apiimage:
+    build:
+      context: ./AiCompServer
+      dockerfile: Imagefile
+    image: aicompimage:1.0
   api:
     build:
       context: ./AiCompServer
+      dockerfile: Dockerfile
       args:
         DBHOST: db
         HOST : 0.0.0.0
+    image: aicompapi:1.0
     container_name: aicomp
     volumes:
       - ./correct/:/correct/
     environment:
       DBHOST: db
       HOST: 0.0.0.0
-      ANSWERFILE: /correct/challenge
+      ANSWERFILE: /correct/answer
     command: ["./run.sh"]
     ports:
-      - 9900:9000
+      - 8080:9000
+    depends_on:
+      - db
+    links:
+      - db
+  api2:
+    image: aicompapi:1.0
+    container_name: aicomp
+    volumes:
+      - ./correct/:/correct/
+    environment:
+      DBHOST: db
+      HOST: 0.0.0.0
+      ANSWERFILE: /correct/answer
+    command: ["./run.sh"]
+    ports:
+      - 8081:9000
     depends_on:
       - db
     links:
