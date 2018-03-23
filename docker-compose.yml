@@ -16,6 +16,7 @@ services:
     image: aicompimage:1.0
   redis:
     image: redis:3.2.9
+    hostname: redis
   api:
     build:
       context: ./AiCompServer
@@ -29,10 +30,10 @@ services:
     volumes:
       - ./correct/:/correct/
     environment:
-      DBHOST: db
-      HOST: 0.0.0.0
-      REDIS: redis
-      ANSWERFILE: /correct/answer
+      - DBHOST=db
+      - HOST=0.0.0.0
+      - REDIS=redis:6379
+      - ANSWERFILE=/correct/answer
     command: ["./run.sh"]
     ports:
       - 8080:9000
@@ -41,3 +42,23 @@ services:
       - redis
     links:
       - redis
+      - db
+  api2:
+    image: aicompapi:1.0
+    container_name: aicomp2
+    volumes:
+      - ./correct/:/correct/
+    environment:
+      - DBHOST=db
+      - HOST=0.0.0.0
+      - REDIS=redis:6379
+      - ANSWERFILE=/correct/answer
+    command: ["./run.sh"]
+    ports:
+      - 8081:9000
+    depends_on:
+      - db
+      - redis
+    links:
+      - redis
+      - db
