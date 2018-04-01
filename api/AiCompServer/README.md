@@ -2,15 +2,7 @@
 
 Thie System uses revel
 A high-productivity web framework for the [Go language](http://www.golang.org/).
-
-### Start the server:
-
-```
-git clone https://github.com/Cpaw/AiComp.git
-cd AiComp
-docker-compose up -d
-```
-
+ 
 ### This is Score Server System
 
 ```
