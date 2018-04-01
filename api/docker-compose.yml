@@ -11,7 +11,7 @@ services:
       - 5432
   apiimage:
     build:
-      context: ./AiCompServer
+      context: ./docker
       dockerfile: Imagefile
     image: aicompimage:1.0
   redis:
@@ -19,7 +19,7 @@ services:
     hostname: redis
   api:
     build:
-      context: ./AiCompServer
+      context: ./docker
       dockerfile: Dockerfile
       args:
         DBHOST: db
@@ -33,6 +33,7 @@ services:
       - DBHOST=db
       - HOST=0.0.0.0
       - REDIS=redis:6379
+      - ADMINROLE=adminkey
       - ANSWERFILE=/correct/answer
     command: ["./run.sh"]
     ports:
@@ -52,6 +53,7 @@ services:
       - DBHOST=db
       - HOST=0.0.0.0
       - REDIS=redis:6379
+      - ADMINROLE=adminkey
       - ANSWERFILE=/correct/answer
     command: ["./run.sh"]
     ports:
