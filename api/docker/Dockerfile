@@ -6,7 +6,7 @@ ARG HOST=0.0.0.0
 ARG REDIS
 WORKDIR /go/src
 
-RUN git clone https://github.com/Cpaw/AiCompServer.git /go/src/AiCompServer
+ADD ../AiCompServer /go/src/
 RUN revel package AiCompServer
 RUN mv AiCompServer.tar.gz /go/
 WORKDIR /go/
