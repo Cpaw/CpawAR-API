@@ -6,6 +6,6 @@ Thie System uses revel
 
 ```
 git clone https://github.com/Cpaw/AiComp.git
-cd AiComp
+cd AiComp/api
 docker-compose up -d
 ```
