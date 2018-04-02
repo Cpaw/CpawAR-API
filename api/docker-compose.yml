@@ -11,7 +11,7 @@ services:
       - 5432
   apiimage:
     build:
-      context: ./docker
+      context: .
       dockerfile: Imagefile
     image: aicompimage:1.0
   redis:
@@ -19,12 +19,8 @@ services:
     hostname: redis
   api:
     build:
-      context: ./docker
+      context: .
       dockerfile: Dockerfile
-      args:
-        DBHOST: db
-        HOST : 0.0.0.0
-        REDIS: redis:6379
     image: aicompapi:1.0
     container_name: aicomp
     volumes:

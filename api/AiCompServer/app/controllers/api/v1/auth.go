@@ -32,8 +32,6 @@ type ApiAuth struct {
 }
 
 func (c ApiAuth) GetSessionID() revel.Result {
-	a, _ := revel.Config.String("cache.hosts")
-	log.Print(a)
 	session := TokenGenerator(32)
 	go cache.Set("session_"+session, session, 2*time.Minute)
 	c.Response.Out.Header().Add("Authorization", session)
@@ -56,8 +54,8 @@ func (c ApiAuth) SignIn() revel.Result {
 	if err := c.BindParams(jsonData); err != nil {
 		return c.HandleBadRequestError(err.Error())
 	}
-	salt := []byte("yatuhashi")
-	converted, _ := scrypt.Key([]byte(jsonData.Password), salt, 16384, 8, 1, 32)
+	salt := revel.Config.StringDefault("password.salt", "yatuhashi")
+	converted, _ := scrypt.Key([]byte(jsonData.Password), []byte(salt), 16384, 8, 1, 32)
 	password := hex.EncodeToString(converted[:])
 
 	userOld := &models.User{}
