@@ -60,3 +60,43 @@ func (c ApiChallenge) Ranking() revel.Result {
 	r := Response{ResponseRanking{rank}}
 	return c.RenderJSON(r)
 }
+
+func (c ApiChallenge) RankingChallenge(id int) revel.Result {
+	if err := CheckToken(c.ApiV1Controller); err != nil {
+		return err
+	}
+	users := []models.User{}
+	if err := db.DB.Order("id desc").Find(&users).Error; err != nil {
+		return c.HandleNotFoundError("Record Find Failure")
+	}
+	answer := models.Answer{}
+	var rank Ranks
+	for _, user := range users {
+		if user.Role == "admin" {
+			continue
+		}
+		score := 0.0
+		if err := db.DB.Where("user_id = ? AND challenge_id = ?", user.ID, ChallengeID).First(&answer).Error; err != nil {
+			continue
+		}
+		score = score + answer.Score
+		rank = append(rank, Rank{Rank: 0, Username: user.Username, Score: score})
+	}
+	sort.Slice(rank, func(i, j int) bool { return rank[i].Score > rank[j].Score })
+	Rindex := 1
+	TmpScore := 0.0
+	for Tindex, _ := range rank {
+		// スコアが前の人と一緒の時は前の人の順位と同じにする
+		if rank[Tindex].Score == TmpScore {
+			rank[Tindex].Rank = Rindex
+			TmpScore = rank[Tindex].Score
+		} else {
+			rank[Tindex].Rank = Tindex + 1
+			Rindex = Tindex + 1
+			TmpScore = rank[Tindex].Score
+		}
+		rank[Tindex].Score = float64(int((rank[Tindex].Score*1000)+0.5)) / 1000
+	}
+	r := Response{ResponseRanking{rank}}
+	return c.RenderJSON(r)
+}

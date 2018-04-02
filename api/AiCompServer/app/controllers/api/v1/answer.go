@@ -6,6 +6,7 @@ import (
 	"bufio"
 	"github.com/revel/revel"
 	"gopkg.in/validator.v2"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -193,6 +194,7 @@ func (c ApiAnswer) Submit(ChallengeID uint64, ansFP *os.File) revel.Result {
 		return c.HandleNotFoundError(err.Error())
 	}
 	acc = acc * 100.0 * challenge.Weight / float64(len(a2))
+	log.Println(acc)
 	// Submitしたユーザーを特定する
 	token := c.Request.Header.Get("Authorization")
 	user := &models.User{}
