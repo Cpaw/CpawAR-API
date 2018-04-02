@@ -76,7 +76,7 @@ func (c ApiChallenge) RankingChallenge(id int) revel.Result {
 			continue
 		}
 		score := 0.0
-		if err := db.DB.Where("user_id = ? AND challenge_id = ?", user.ID, ChallengeID).First(&answer).Error; err != nil {
+		if err := db.DB.Where("user_id = ? AND challenge_id = ?", user.ID, id).First(&answer).Error; err != nil {
 			continue
 		}
 		score = score + answer.Score
