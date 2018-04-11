@@ -6,10 +6,3 @@ type Challenge struct {
 	QuestionText string `sql:"size:512" json:"questiontext" validate:"min=1, max=512" gorm:"not null"`
 	Weight       float64
 }
-
-type Answer struct {
-	BaseModel
-	ChallengeID uint64
-	UserID      uint64
-	Score       float64
-}
