@@ -1,4 +1,4 @@
-# CAIC コンテストサイト
+# CpawAIC コンテストサイト
 
 Cpaw AI competitionのコンテストサイトです。
 
