@@ -48,6 +48,7 @@ POST    /api/v1/setting                         ApiSetting.Create
 GET     /api/v1/setting/:id                     ApiSetting.Show
 PUT     /api/v1/setting/:id                     ApiSetting.Update
 DELETE  /api/v1/setting/:id                     ApiSetting.Delete
+GET     /api/v1/setting/adapt/:id               ApiSetting.Adapt
 
 
 # Catch all, this will route any request into the controller path
