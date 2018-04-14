@@ -193,11 +193,17 @@ func (c ApiAnswer) Submit(ChallengeID uint64, ansFP *os.File) revel.Result {
 			a2[l2[0]] = l2[1]
 		}
 	}
+	PreCount := 0
+	pacc := 0.0
 	for asKey, asVal := range a1 {
 		if aaVal, err := a2[asKey]; err == true {
 			if aaVal == asVal {
 				acc = acc + 1.0
+				if PreCount < 100 {
+					pacc = pacc + 1.0
+				}
 			}
+			PreCount = PreCount + 1
 		}
 	}
 	if err := scanner1.Err(); err != nil {
@@ -211,13 +217,15 @@ func (c ApiAnswer) Submit(ChallengeID uint64, ansFP *os.File) revel.Result {
 		return c.HandleNotFoundError(err.Error())
 	}
 	acc = acc * 100.0 * challenge.Weight / float64(len(a2))
-	log.Println(acc)
 	// Submitしたユーザーを特定する
 	token := c.Request.Header.Get("Authorization")
 	user := &models.User{}
 	if err := db.DB.Find(&user, models.User{Token: token}).Error; err != nil {
 		return c.HandleNotFoundError(err.Error())
 	}
+	log.Println(user.Username)
+	log.Println(acc)
+	log.Println(pacc)
 	// まずはDBを探してあったらUpdate処理、なかったらCreate
 	// そのユーザーがSubmitした問題のanswerを探す
 	answer := &models.Answer{}
@@ -253,6 +261,45 @@ func (c ApiAnswer) Submit(ChallengeID uint64, ansFP *os.File) revel.Result {
 	}
 	if err := db.DB.Model(&answer).Update(&answerNew).Error; err != nil {
 		return c.HandleNotFoundError(err.Error())
+	}
+	// PreAnswer
+	panswer := &models.PreAnswer{}
+	if err := db.DB.Where("user_id = ? AND challenge_id = ?", user.ID, ChallengeID).First(&panswer).Error; err != nil {
+		// なかった場合のCreate
+		panswer.ChallengeID = ChallengeID
+		panswer.UserID = user.ID
+		panswer.Score = pacc
+		if err := validator.Validate(panswer); err != nil {
+			return c.HandleBadRequestError(err.Error())
+		}
+		if err := db.DB.Create(panswer).Error; err != nil {
+			return c.HandleBadRequestError(err.Error())
+		}
+		r := Response{ResponseAccuracy{pacc}}
+		return c.RenderJSON(r)
+	}
+	// 前回の更新から1分たっているか確認する(解答の解析を出来なくするため
+	if time.Since(panswer.UpdatedAt) < time.Minute*1 {
+		return c.HandleBadRequestError("前回のSubmitから1分が経過していません。")
+	}
+	// そのユーザーがSubmitした問題のanswerを更新する
+	panswerNew := &models.PreAnswer{}
+	panswerNew.ChallengeID = ChallengeID
+	panswerNew.UserID = user.ID
+	if panswer.Score < pacc {
+		panswerNew.Score = pacc
+	} else {
+		panswerNew.Score = panswer.Score
+	}
+	if err := validator.Validate(panswerNew); err != nil {
+		return c.HandleBadRequestError(err.Error())
+	}
+	if err := db.DB.Model(&panswer).Update(&panswerNew).Error; err != nil {
+		return c.HandleNotFoundError(err.Error())
+	}
+	if PreRanking {
+		r := Response{ResponseAccuracy{panswerNew.Score}}
+		return c.RenderJSON(r)
 	}
 	r := Response{ResponseAccuracy{answerNew.Score}}
 	return c.RenderJSON(r)
