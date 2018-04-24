@@ -35,8 +35,20 @@ PUT     /api/v1/answers/:id                     ApiAnswer.Update
 DELETE  /api/v1/answers/:id                     ApiAnswer.Delete
 POST    /api/v1/submit                          ApiAnswer.Submit
 
-GET     /api/v1/challengeanswer/:id            ApiAnswer.UserChallengeAnswer
+GET     /api/v1/challengeanswer/:id             ApiAnswer.UserChallengeAnswer
 
+GET     /api/v1/notification                    ApiNotification.Index
+POST    /api/v1/notification                    ApiNotification.Create
+GET     /api/v1/notification/:id                ApiNotification.Show
+PUT     /api/v1/notification/:id                ApiNotification.Update
+DELETE  /api/v1/notification/:id                ApiNotification.Delete
+
+GET     /api/v1/setting                         ApiSetting.Index
+POST    /api/v1/setting                         ApiSetting.Create
+GET     /api/v1/setting/:id                     ApiSetting.Show
+PUT     /api/v1/setting/:id                     ApiSetting.Update
+DELETE  /api/v1/setting/:id                     ApiSetting.Delete
+GET     /api/v1/setting/adapt/:id               ApiSetting.Adapt
 
 
 # Catch all, this will route any request into the controller path
