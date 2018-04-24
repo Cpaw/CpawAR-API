@@ -9,8 +9,8 @@
       <li>故意にサーバに負荷をかけないでください。</li>
       <li>回答は、1分以内に連続して提出することはできません。</li>
     </section>
-    <section v-if="role='admin'">
-      <router-link :to="{ path: 'admin'}">Admin page</router-link>
+    <section class="admin_link" v-if="role='admin'">
+      <p><router-link :to="{ path: 'admin'}">Admin page</router-link></p>
     </section>
   </article>
 </template>
@@ -75,10 +75,21 @@ li {
 a {
   color: #42b983;
 }
+p {
+  font-size: 24px;
+}
 .explain {
   background: white;
   width: 60vw;
   height: 38vh;
+  margin: 10vh auto 0 auto;
+  border: solid 3.15px #6699cc;
+  border-radius: 10px 10px;
+}
+.admin_link {
+  background: white;
+  width: 20vw;
+  height: 8vh;
   margin: 10vh auto 0 auto;
   border: solid 3.15px #6699cc;
   border-radius: 10px 10px;
