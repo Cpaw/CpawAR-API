@@ -5,6 +5,7 @@ import Challenges from '@/components/Challenges'
 import Challenge from '@/components/Challenge'
 import Ranking from '@/components/Ranking'
 import Auth from '@/components/Auth'
+import Admin from '@/components/Admin'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/auth',
       name: 'auth',
       component: Auth
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin
     }
   ]
 })

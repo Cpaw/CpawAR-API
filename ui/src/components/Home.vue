@@ -9,11 +9,34 @@
       <li>故意にサーバに負荷をかけないでください。</li>
       <li>回答は、1分以内に連続して提出することはできません。</li>
     </section>
+    <section v-if="role='admin'">
+      <router-link :to="{ path: 'admin'}">Admin page</router-link>
+    </section>
   </article>
 </template>
 
 <script>
+import {HTTP} from './Header'
+
 export default {
+  data () {
+    return {
+      role: ''
+    }
+  },
+  mounted () {
+    HTTP.get(`role`,
+      {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      })
+      .then(response => {
+        this.$data.role = response.data.results
+      })
+      .catch(e => {
+      })
+  }
 }
 </script>
 
