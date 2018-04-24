@@ -6,6 +6,8 @@ import Challenge from '@/components/Challenge'
 import Ranking from '@/components/Ranking'
 import Auth from '@/components/Auth'
 import Admin from '@/components/Admin'
+import AddChallenge from '@/components/admin/AddChallenge'
+import EditChallenge from '@/components/admin/EditChallenge'
 
 Vue.use(Router)
 
@@ -40,6 +42,16 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: Admin
-    }
+    },
+    {
+      path: '/admin/addchallenge',
+      name: 'addchallenge',
+      component: AddChallenge
+    },
+    {
+      path: '/admin/editchallenge',
+      name: 'editchallenge',
+      component: EditChallenge
+    },
   ]
 })
