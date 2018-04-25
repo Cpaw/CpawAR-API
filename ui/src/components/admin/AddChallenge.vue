@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article v-if="isAdmin">
     <section class="challenge">
       <h2>問題追加</h2>
       <form v-on:submit.prevent="addChallenge">
@@ -47,8 +47,24 @@ export default {
         QuestionText: '',
         Weight: 0
       },
-      addChallengeError: false
+      addChallengeError: false,
+      isAdmin: false
     }
+  },
+  mounted () {
+    HTTP.get(`role`,
+      {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      })
+      .then(response => {
+        if (response.data.results == 'admin') {
+          this.$data.isAdmin = true
+        }
+      })
+      .catch(e => {
+      })
   },
   methods: {
     addChallenge: function () {

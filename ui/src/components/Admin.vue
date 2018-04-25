@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article v-if="isAdmin">
     <section class="challenge">
       <router-link tag="li" :to="{ name: 'addchallenge' }">Add Challenge</router-link>
       <router-link tag="li" :to="{ name: 'editchallenge' }">Edit Challenge</router-link>
@@ -13,6 +13,24 @@
 <script>
 export default {
   data () {
+    return {
+      isAdmin: false
+    }
+  },
+  mounted () {
+    HTTP.get(`role`,
+      {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      })
+      .then(response => {
+        if (response.data.results == 'admin') {
+          this.$data.isAdmin = true
+        }
+      })
+      .catch(e => {
+      })
   }
 }
 </script>
