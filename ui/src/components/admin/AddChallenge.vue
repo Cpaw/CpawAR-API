@@ -16,7 +16,7 @@
             <label for="contents">Challenge text:</label>
           </div>
           <div class="contents">
-            <textarea type="text" name="contents" v-model="challenge.QuestionText" cols="80" rows="10" />
+            <textarea type="text" name="contents" v-model="challenge.QuestionText" cols="60" rows="5" />
           </div>
         </div>
         <div class="field">
@@ -89,6 +89,7 @@ input, button {
   -moz-appearance: none;
   appearance: none;
   font-family: "a-otf-ud-shin-maru-go-pr6n";
+  font-size: 20px;
   border: solid 2px #6688cc;
   border-radius: 5px;
   outline: 0;
@@ -96,6 +97,16 @@ input, button {
 input:focus {
   border: solid 2px #6699cc;
   border-radius: 5px;
+}
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: "a-otf-ud-shin-maru-go-pr6n";
+  font-size: 20px;
+  border: solid 2px #6688cc;
+  border-radius: 5px;
+  outline: 0;
 }
 button {
   position: relative;
@@ -120,13 +131,13 @@ button:active {
   padding: 5px;
   font-size: 24px;
   font-weight: 700;
-  width: 24vw;
+  width: 80vw;
 }
 .contents {
-  margin: 0 auto 0 -5vw;
+
 }
 .label {
-  text-align: left;
+  text-align: center;
 }
 .error {
   margin: 2vh auto 2vh auto;
