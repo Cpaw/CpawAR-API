@@ -8,7 +8,7 @@
             <label for="title">Title:</label>
           </div>
           <div class="input">
-            <input class="title" type="text" name="title" v-model="challenge.title">
+            <input class="title" type="text" name="title" v-model="challenge.Title">
           </div>
         </div>
         <div class="field">
@@ -16,7 +16,7 @@
             <label for="contents">Challenge text:</label>
           </div>
           <div class="contents">
-            <textarea type="text" name="contents" v-model="challenge.contents" />
+            <textarea type="text" name="contents" v-model="challenge.QuestionText" />
           </div>
         </div>
         <div class="field">
@@ -24,7 +24,7 @@
             <label for="weight">Weight:</label>
           </div>
           <div class="weight">
-            <input type="number" name="weight" v-model="challenge.weight" />
+            <input type="number" name="weight" v-model="challenge.Weight" />
           </div>
         </div>
         <div class="submit">
@@ -43,9 +43,9 @@ export default {
   data () {
     return {
       challenge: {
-        title: '',
-        contents: '',
-        weight: ''
+        Title: '',
+        QuestionText: '',
+        Weight: 0
       },
       addChallengeError: false
     }
