@@ -52,6 +52,6 @@ export default new Router({
       path: '/admin/editchallenge',
       name: 'editchallenge',
       component: EditChallenge
-    },
+    }
   ]
 })
