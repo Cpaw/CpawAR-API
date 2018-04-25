@@ -13,10 +13,18 @@
         </div>
         <div class="field">
           <div class="label">
-            <label for="weight">Weight</label>
+            <label for="contents">Challenge text:</label>
+          </div>
+          <div class="contents">
+            <textarea type="text" name="contents" v-model="challenge.contents" />
+          </div>
+        </div>
+        <div class="field">
+          <div class="label">
+            <label for="weight">Weight:</label>
           </div>
           <div class="weight">
-            <textarea type="text" name="weight" v-model="challenge.weight" />
+            <input type="number" name="weight" v-model="challenge.weight" />
           </div>
         </div>
         <div class="submit">
