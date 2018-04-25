@@ -16,7 +16,7 @@
             <label for="contents">Challenge text:</label>
           </div>
           <div class="contents">
-            <textarea type="text" name="contents" v-model="challenge.QuestionText" />
+            <textarea type="text" name="contents" v-model="challenge.QuestionText" cols="80" rows="10" />
           </div>
         </div>
         <div class="field">
@@ -122,7 +122,15 @@ button:active {
   font-weight: 700;
   width: 24vw;
 }
+.contents {
+  margin: 0 auto 0 -5vw;
+}
 .label {
   text-align: left;
+}
+.error {
+  margin: 2vh auto 2vh auto;
+  font-size: 24px;
+  color: #ff5d86;
 }
 </style>
