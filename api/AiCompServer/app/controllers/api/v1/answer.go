@@ -297,7 +297,7 @@ func (c ApiAnswer) Submit(ChallengeID uint64, ansFP *os.File) revel.Result {
 	if err := db.DB.Model(&panswer).Update(&panswerNew).Error; err != nil {
 		return c.HandleNotFoundError(err.Error())
 	}
-	if PreRanking {
+	if PreRanking() {
 		r := Response{ResponseAccuracy{panswerNew.Score}}
 		return c.RenderJSON(r)
 	}
