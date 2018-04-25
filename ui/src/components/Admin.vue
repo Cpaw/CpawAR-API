@@ -5,7 +5,7 @@
       <router-link tag="li" :to="{ name: 'editchallenge' }">Edit Challenge</router-link>
     </section>
      <section class="user">
-      <router-link :to="{ name: 'edituser' }"></router-link>
+      <router-link :to="{ name: 'edituser' }">Edit User</router-link>
     </section>
   </article>
 </template>
