@@ -1,11 +1,11 @@
 <template>
   <article>
     <section class="challenge">
-      <h2>Add Challenge</h2>
-      <h2>Edit Challenge</h2>
+      <router-link :to="{ name: 'addchallenge' }">Add Challenge</router-link>
+      <router-link :to="{ name: 'editchallenge' }">Edit Challenge</router-link>
     </section>
      <section class="user">
-      <h2>Edit User</h2>
+      <router-link :to="{ name: 'edituser' }"></router-link>
     </section>
   </article>
 </template>

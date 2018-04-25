@@ -8,6 +8,7 @@ import Auth from '@/components/Auth'
 import Admin from '@/components/Admin'
 import AddChallenge from '@/components/admin/AddChallenge'
 import EditChallenge from '@/components/admin/EditChallenge'
+import EditUser from '@/components/admin/EditUser'
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ export default new Router({
       path: '/admin/editchallenge',
       name: 'editchallenge',
       component: EditChallenge
+    },
+    {
+      path: '/admin/edituser',
+      name: 'edituser',
+      component: EditUser
     }
   ]
 })
