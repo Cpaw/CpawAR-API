@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import {HTTP} from '../Header'
+
 export default {
   data () {
     return {
@@ -36,7 +38,26 @@ export default {
         title: '',
         contents: '',
         weight: ''
-      }
+      },
+      addChallengeError: false
+    }
+  },
+  methods: {
+    addChallenge: function () {
+      HTTP.post('challenges',
+        this.$data.challenge,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
+          },
+          withCredentials: true
+        })
+        .then(response => {
+        })
+        .catch(e => {
+          this.$data.addChallengeError = true
+        })
     }
   }
 }
