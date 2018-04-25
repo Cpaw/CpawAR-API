@@ -72,4 +72,57 @@ export default {
 </script>
 
 <style scoped>
+article {
+  display: -webkit-flex;
+  display: flex;
+}
+section {
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+label {
+  width: 8vw;
+}
+input, button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: "a-otf-ud-shin-maru-go-pr6n";
+  border: solid 2px #6688cc;
+  border-radius: 5px;
+  outline: 0;
+}
+input:focus {
+  border: solid 2px #6699cc;
+  border-radius: 5px;
+}
+button {
+  position: relative;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #fff;
+  background: #6699cc;
+  border: solid 2px #6699cc;
+  font-size: 20px;
+  font-family: "a-otf-ud-shin-maru-go-pr6n";
+  width: 10vw;
+}
+button:hover {
+  cursor: pointer;
+  background: #76a9dc;
+}
+button:active {
+  background: #4679ac;
+}
+.field {
+  margin: 0 auto 5vh auto;
+  padding: 5px;
+  font-size: 24px;
+  font-weight: 700;
+  width: 24vw;
+}
+.label {
+  text-align: left;
+}
 </style>
