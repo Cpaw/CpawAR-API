@@ -107,13 +107,34 @@ export default {
 section {
   background: white;
   width: 60vw;
-  height: 40vh;
   margin: 0 auto 1em auto;
+  padding: 1em;
   border: solid 3.15px #6699cc;
   border-radius: 10px 10px;
 }
+button {
+  position: relative;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #FFF;
+  background: #6699cc;
+  border: solid 2px #6699cc;
+  font-size: 20px;
+  font-family: "a-otf-ud-shin-maru-go-pr6n";
+  width: 10vw;
+}
+button:hover {
+  cursor: pointer;
+  background: #76a9dc;
+}
+button:active {
+  background: #4679ac;
+}
+input, textarea {
+  font-size: 16px;
+}
 .field {
-  margin: 1vh auto;
+  margin: 1em auto;
 }
 .label {
   font-size: 24px;
