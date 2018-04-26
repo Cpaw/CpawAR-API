@@ -37,15 +37,15 @@ export default {
 
 <style scoped>
 article {
-  width: 20vw;
-  margin: 5vw auto;
+  width: 26vw;
+  margin: 1em auto;
   display: flex;
   justify-content: space-between;
 }
 li {
   list-style-type: none;
   background-color: #fff;
-  width: 14vw;
+  width: 20vw;
   height: 42px;
   padding-top: 6px;
   margin: 1em;
