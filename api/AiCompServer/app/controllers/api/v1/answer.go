@@ -101,24 +101,6 @@ func (c ApiAnswer) Create() revel.Result {
 	return c.RenderJSON(r)
 }
 
-func (c ApiAnswer) AnswerFileUpload(ChallengeID uint64, ansFP *os.File) revel.Result {
-	if err := CheckRole(c.ApiV1Controller, []string{"admin"}); err != nil {
-		return err
-	}
-	if err := CheckToken(c.ApiV1Controller); err != nil {
-		return err
-	}
-	ansFile := revel.Config.StringDefault("answer.file", "/correct/answer") + strconv.Itoa(int(ChallengeID)) + ".csv"
-	file, err := os.OpenFile(ansFile, os.O_WRONLY|os.O_CREATE, 0666)
-	if err != nil {
-		return c.HandleBadRequestError(err.Error())
-	}
-	io.Copy(file, ansFP)
-	file.Close()
-	r := Response{"Success Upload"}
-	return c.RenderJSON(r)
-}
-
 // Answer Update
 func (c ApiAnswer) Update(id int) revel.Result {
 	if err := CheckRole(c.ApiV1Controller, []string{"admin"}); err != nil {
