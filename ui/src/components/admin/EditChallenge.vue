@@ -1,14 +1,14 @@
 <template>
   <article v-if="isAdmin">
     <h2>問題追加</h2>
-    <section v-for="challenge in challenges" :key="challenge.id">
-      <form v-on:submit.prevent="editChallenge">
+    <section v-for="(challenge, idx) in challenges" :key="challenge.id">
+      <form v-on:submit.prevent="editChallenge(idx)">
         <div class="field">
           <div class="label">
             <label for="title">Title:</label>
           </div>
           <div class="input">
-            <input class="title" type="text" name="title" v-model="challenge.Title">
+            <input class="title" type="text" name="title" v-model="challenge.title">
           </div>
         </div>
         <div class="field">
@@ -16,7 +16,7 @@
             <label for="contents">Challenge text:</label>
           </div>
           <div class="contents">
-            <textarea type="text" name="contents" v-model="challenge.QuestionText" cols="60" rows="5" />
+            <textarea type="text" name="contents" v-model="challenge.questiontext" cols="60" rows="5" />
           </div>
         </div>
         <div class="field">
@@ -31,7 +31,8 @@
           <button type="submit">Submit</button>
         </div>
       </form>
-      <div class="error" v-if="addChallengeError">Invalid data</div>
+      <div class="error" v-if="isError">Invalid data</div>
+      <div class="isSuccess" v-if="isSuccess">Invalid data</div>
     </section>
   </article>
 </template>
@@ -42,6 +43,16 @@ import {HTTP} from '../Header'
 export default {
   data () {
     return {
+      challenges: [{
+        id: 0,
+        title: '',
+        created_at: '',
+        updated_at: '',
+        questiontext: '',
+        Weight: ''
+      }],
+      isSuccess: false,
+      isError: false,
       isAdmin: false
     }
   },
@@ -57,11 +68,54 @@ export default {
           this.$data.isAdmin = true
         }
       })
-      .catch(e => {
+    HTTP.get(`challenges`,
+      {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
       })
+      .then(response => {
+        this.$data.challenges = response.data.results.challenges
+      })
+  },
+  methods: {
+    editChallenge: function (id) {
+      HTTP.put(`challenges/` + String(this.$data.challenges[id].id),
+        this.$data.challenges[id],
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
+          },
+          withCredentials: true
+        })
+        .then(response => {
+          this.$data.isSuccess = true
+          this.$data.isError = false
+        })
+        .catch(e => {
+          this.$data.isSuccess = false
+          this.$data.isError = true
+        })
+    }
   }
+
 }
 </script>
 
 <style scoped>
+section {
+  background: white;
+  width: 60vw;
+  height: 40vh;
+  margin: 0 auto 1em auto;
+  border: solid 3.15px #6699cc;
+  border-radius: 10px 10px;
+}
+.field {
+  margin: 1vh auto;
+}
+.label {
+  font-size: 24px;
+}
 </style>
