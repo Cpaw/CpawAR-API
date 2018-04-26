@@ -59,7 +59,7 @@ export default {
         }
       })
       .then(response => {
-        if (response.data.results == 'admin') {
+        if (response.data.results === 'admin') {
           this.$data.isAdmin = true
         }
       })

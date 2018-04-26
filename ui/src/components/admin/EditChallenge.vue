@@ -1,7 +1,7 @@
 <template>
   <article v-if="isAdmin">
     <h2>問題追加</h2>
-    <section v-for="challenge in challenges">
+    <section v-for="challenge in challenges" :key="challenge.id">
       <form v-on:submit.prevent="editChallenge">
         <div class="field">
           <div class="label">
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import {HTTP} from '../Header'
+
 export default {
   data () {
     return {
@@ -51,7 +53,7 @@ export default {
         }
       })
       .then(response => {
-        if (response.data.results == 'admin') {
+        if (response.data.results === 'admin') {
           this.$data.isAdmin = true
         }
       })
