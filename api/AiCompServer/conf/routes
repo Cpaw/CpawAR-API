@@ -24,6 +24,7 @@ GET     /api/v1/ranking/:id                     ApiChallenge.RankingChallenge
 
 GET     /api/v1/challenges                      ApiChallenge.Index
 POST    /api/v1/challenges                      ApiChallenge.Create
+POST    /api/v1/challengesFile                  ApiChallenge.ChallengeFileUpload
 GET     /api/v1/challenges/:id                  ApiChallenge.Show
 PUT     /api/v1/challenges/:id                  ApiChallenge.Update
 DELETE  /api/v1/challenges/:id                  ApiChallenge.Delete
