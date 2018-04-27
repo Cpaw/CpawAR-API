@@ -9,11 +9,35 @@
       <li>故意にサーバに負荷をかけないでください。</li>
       <li>回答は、1分以内に連続して提出することはできません。</li>
     </section>
+    <section class="admin_link" v-if="role==='admin'">
+      <p><router-link :to="{ path: 'admin'}">Admin page</router-link></p>
+    </section>
   </article>
 </template>
 
 <script>
+import {HTTP} from './Header'
+
 export default {
+  data () {
+    return {
+      role: ''
+    }
+  },
+  mounted () {
+    HTTP.get(`role`,
+      {
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      })
+      .then(response => {
+        this.$data.role = response.data.results
+      })
+      .catch(e => {
+        this.$data.role = "error"
+      })
+  }
 }
 </script>
 
@@ -52,10 +76,22 @@ li {
 a {
   color: #42b983;
 }
+p {
+  font-size: 26px;
+  margin-top: 0.8em;
+}
 .explain {
   background: white;
   width: 60vw;
   height: 38vh;
+  margin: 10vh auto 0 auto;
+  border: solid 3.15px #6699cc;
+  border-radius: 10px 10px;
+}
+.admin_link {
+  background: white;
+  width: 10em;
+  height: 4em;
   margin: 10vh auto 0 auto;
   border: solid 3.15px #6699cc;
   border-radius: 10px 10px;
