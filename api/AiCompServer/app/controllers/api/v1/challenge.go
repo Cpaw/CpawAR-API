@@ -92,7 +92,7 @@ func (c ApiChallenge) Update(id int) revel.Result {
 	return c.RenderJSON(r)
 }
 
-func (c ApiAnswer) ChallengeFileUpload(ChallengeID uint64, ansFP *os.File) revel.Result {
+func (c ApiChallenge) ChallengeFileUpload(ChallengeID uint64, ansFP *os.File) revel.Result {
 	if err := CheckRole(c.ApiV1Controller, []string{"admin"}); err != nil {
 		return err
 	}
