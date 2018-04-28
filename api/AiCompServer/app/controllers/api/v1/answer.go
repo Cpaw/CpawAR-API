@@ -6,7 +6,6 @@ import (
 	"bufio"
 	"github.com/revel/revel"
 	"gopkg.in/validator.v2"
-	"io"
 	"log"
 	"os"
 	"strconv"
