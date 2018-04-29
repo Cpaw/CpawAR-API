@@ -11,9 +11,18 @@
       </label>
       <p>{{ filename }}</p>
       <br>
-      <button @click="upload" type="submit">Submit</button>
-      <div id="result" v-if="isSuccess">OK</div>
-      <div id="error" v-if="isError">Error</div>
+      <div class="button">
+        <div class="create">
+          <button @click="create" type="submit">Create</button>
+          <div id="result" v-if="isSuccess">OK</div>
+          <div id="error" v-if="isError">Error</div>
+        </div>
+        <div class="update">
+          <button @click="update" type="submit">Update</button>
+          <div id="result" v-if="isSuccess">OK</div>
+          <div id="error" v-if="isError">Error</div>
+        </div>
+      </div>
     </section>
   </article>
   <article v-else>
@@ -60,7 +69,7 @@ export default {
       this.$data.uploadFile = files[0]
       this.$data.filename = files[0].name
     },
-    upload: function () {
+    create: function () {
       this.$data.isSubmitted = true
       let formData = new FormData()
       formData.append('ansFP', this.$data.uploadFile)
@@ -75,12 +84,37 @@ export default {
           })
           .then(response => {
             this.isSuccess = true
+            this.isError = false
           })
           .catch(e => {
             this.$data.isError = true
+            this.isSuccess = false
+          })
+      }, 3000)
+    },
+    update: function () {
+      this.$data.isSubmitted = true
+      let formData = new FormData()
+      formData.append('ansFP', this.$data.uploadFile)
+      setTimeout(() => {
+        HTTP.put('answer/' + this.$data.id, formData,
+          {
+            headers: {
+              'content-type': 'multipart/form-data',
+              'Authorization': localStorage.getItem('token')
+            }
+          })
+          .then(response => {
+            this.isSuccess = true
+            this.isError = false
+          })
+          .catch(e => {
+            this.$data.isError = true
+            this.isSuccess = false
           })
       }, 3000)
     }
+
   }
 }
 </script>
@@ -198,5 +232,14 @@ button:active {
 }
 #result {
   font-size: 36px;
+}
+.button {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 </style>
