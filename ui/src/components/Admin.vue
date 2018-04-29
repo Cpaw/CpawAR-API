@@ -3,6 +3,7 @@
     <section class="challenge">
       <router-link tag="li" :to="{ name: 'addchallenge' }">Add Challenge</router-link>
       <router-link tag="li" :to="{ name: 'editchallenge' }">Edit Challenge</router-link>
+      <router-link tag="li" :to="{ name: 'uploadanswer' }">Upload Answer</router-link>
       <router-link tag="li" :to="{ name: 'edituser' }">Edit User</router-link>
     </section>
   </article>

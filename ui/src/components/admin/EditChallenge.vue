@@ -2,6 +2,7 @@
   <article v-if="isAdmin">
     <h2>問題追加</h2>
     <section v-for="(challenge, idx) in challenges" :key="challenge.id">
+      <h3>ChallengeID: {{challenge.id}}</h3>
       <form v-on:submit.prevent="editChallenge(idx)">
         <div class="field">
           <div class="label">

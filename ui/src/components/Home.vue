@@ -1,7 +1,7 @@
 <template>
   <article>
     <section class="top">
-      <h1>第２回<br>Cpaw AI Competition</h1>
+      <h1>Cpaw AI Competition</h1>
     </section>
     <section class="explain">
       <h2>注意事項</h2>
@@ -35,7 +35,7 @@ export default {
         this.$data.role = response.data.results
       })
       .catch(e => {
-        this.$data.role = "error"
+        this.$data.role = 'error'
       })
   }
 }
