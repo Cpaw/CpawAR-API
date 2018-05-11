@@ -26,6 +26,8 @@ func InitDB() {
 			db.AutoMigrate(&models.Challenge{})
 			db.AutoMigrate(&models.Answer{})
 			db.AutoMigrate(&models.PreAnswer{})
+			db.AutoMigrate(&models.Notification{})
+			db.AutoMigrate(&models.Setting{})
 			DB = db
 			break
 		}
