@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Challenges from '@/components/Challenges'
 import Challenge from '@/components/Challenge'
 import Ranking from '@/components/Ranking'
+import Notification from '@/components/Notification'
 import Auth from '@/components/Auth'
 import Admin from '@/components/Admin'
 import AddChallenge from '@/components/admin/AddChallenge'
@@ -34,6 +35,11 @@ export default new Router({
       path: '/ranking',
       name: 'ranking',
       component: Ranking
+    },
+    {
+      path: '/notification',
+      name: 'notification',
+      component: Notification
     },
     {
       path: '/auth',

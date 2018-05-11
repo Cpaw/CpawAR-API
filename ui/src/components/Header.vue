@@ -17,6 +17,11 @@
         </router-link>
       </a>
       <a>
+        <router-link tag="li" :to="{ name: 'notification'}">
+          Notification
+        </router-link>
+      </a>
+      <a>
         <router-link tag="li" :to="{ path: '/auth'}">
           Auth
         </router-link>
