@@ -1,6 +1,6 @@
 <template>
   <article v-if="isAdmin">
-    <h2>問題追加</h2>
+    <h2>問題編集</h2>
     <section v-for="(challenge, idx) in challenges" :key="challenge.id">
       <h3>ChallengeID: {{challenge.id}}</h3>
       <form v-on:submit.prevent="editChallenge(idx)">
@@ -25,7 +25,7 @@
             <label for="weight">Weight:</label>
           </div>
           <div class="weight">
-            <input type="number" name="weight" v-model="challenge.Weight" />
+            <input type="number" step="any" name="weight" v-model.number="challenge.Weight" />
           </div>
         </div>
         <div class="submit">
@@ -50,7 +50,7 @@ export default {
         created_at: '',
         updated_at: '',
         questiontext: '',
-        Weight: ''
+        Weight: 0
       }],
       isSuccess: false,
       isError: false,
