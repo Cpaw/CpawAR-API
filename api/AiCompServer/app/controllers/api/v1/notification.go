@@ -20,9 +20,6 @@ type ResponseNotifications struct {
 }
 
 func (c ApiNotification) Index() revel.Result {
-	if err := CheckToken(c.ApiV1Controller); err != nil {
-		return err
-	}
 	notifications := []models.Notification{}
 	if err := db.DB.Order("id desc").Find(&notifications).Error; err != nil {
 		return c.HandleNotFoundError("Record Find Failure")
