@@ -60,7 +60,7 @@ export default {
       })
   },
   methods: {
-    addChallenge: function () {
+    addNotification: function () {
       HTTP.post('notifications',
         this.$data.notification,
         {
