@@ -96,8 +96,9 @@ export default {
       this.$data.isSubmitted = true
       let formData = new FormData()
       formData.append('ansFP', this.$data.uploadFile)
+      formData.append('ChallengeID', this.$data.id)
       setTimeout(() => {
-        HTTP.put('answer/' + this.$data.id, formData,
+        HTTP.post('challengesfile', formData,
           {
             headers: {
               'content-type': 'multipart/form-data',

@@ -1,4 +1,4 @@
-FROM golang:1.8.1
+FROM golang:1.9.0
 
 ENV GOPATH $GOPATH:/go/src
 WORKDIR $GOPATH:/go/src
