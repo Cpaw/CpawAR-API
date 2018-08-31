@@ -4,6 +4,7 @@ import (
 	"AiCompServer/app/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"log"
 	"os"
 	"time"
@@ -12,12 +13,10 @@ import (
 var DB *gorm.DB
 
 func InitDB() {
-	dbhost := os.Getenv("DBHOST")
-	// dbname := os.Getenv("DBNAME")
-	// dbuser := os.Getenv("DBUSER")
-	// dbpass := os.Getenv("DBPASSWORD")
+	dbtype := revel.Config.StringDefault("db.type", "sqlite3")
+	dbargs := revel.Config.StringDefault("db.args", "./db.sqlite3")
 	for {
-		db, err := gorm.Open("postgres", "host="+dbhost+" port=5432 user=gorm dbname=gorm sslmode=disable password=yatuhashi-api")
+		db, err := gorm.Open(dbtype, dbargs)
 		if err != nil {
 			log.Println("Failed to connect to database: %v\n", err)
 		} else {
