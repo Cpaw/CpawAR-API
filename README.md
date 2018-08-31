@@ -1,14 +1,11 @@
-# CpawAIC コンテストサイト
+# API Server
 
-Cpaw AI competitionのコンテストサイトです。
+Thie System uses revel
 
+### Start the server:
 
-## ディレクトリ構成
-
-### api/
-- バックエンドに関するディレクトリ
-- Goのrevelベース
-
-### ui/
-- フロントエンドに関するディレクトリ
-- vue jsベース
+```
+git clone https://github.com/yatuhashi/API-Server.git
+cd API-Server
+docker-compose up -d
+```

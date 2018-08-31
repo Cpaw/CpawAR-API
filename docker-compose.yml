@@ -1,0 +1,62 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    container_name: postgresql
+    environment:
+      POSTGRES_DB: gorm
+      POSTGRES_USER: gorm
+      POSTGRES_PASSWORD: yatuhashi-api
+    expose:
+      - 5432
+  apiimage:
+    build:
+      context: .
+      dockerfile: Imagefile
+    image: api-baseimage:1.0
+  redis:
+    image: redis:3.2.9
+    hostname: redis
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: apiimage:1.0
+    container_name: api-revel1
+    volumes:
+      - ./correct/:/correct/
+    environment:
+      - DBHOST=db
+      - HOST=0.0.0.0
+      - REDIS=redis:6379
+      - ADMINROLE=adminkey
+      - ANSWERFILE=/correct/answer
+    command: ["./run.sh"]
+    ports:
+      - 8000:9000
+    depends_on:
+      - db
+      - redis
+    links:
+      - redis
+      - db
+  api2:
+    image: apiimage:1.0
+    container_name: api-revel2
+    volumes:
+      - ./correct/:/correct/
+    environment:
+      - DBHOST=db
+      - HOST=0.0.0.0
+      - REDIS=redis:6379
+      - ADMINROLE=adminkey
+      - ANSWERFILE=/correct/answer
+    command: ["./run.sh"]
+    ports:
+      - 8001:9000
+    depends_on:
+      - db
+      - redis
+    links:
+      - redis
+      - db

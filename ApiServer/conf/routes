@@ -1,0 +1,32 @@
+# Routes Config
+#
+# This file defines all application routes (Higher priority routes first)
+#
+
+module:testrunner
+# module:jobs
+
+POST    /api/v1/signup                          ApiUser.Create
+
+GET     /api/v1/signin                          ApiAuth.GetSessionID
+POST    /api/v1/signin                          ApiAuth.SignIn
+DELETE  /api/v1/signin                          ApiAuth.SignOut
+
+GET     /api/v1/role                            ApiAuth.Role
+
+GET     /api/v1/users                           ApiUser.Index
+GET     /api/v1/users/:id                       ApiUser.Show
+PUT     /api/v1/users/:id                       ApiUser.Update
+DELETE  /api/v1/users/:id                       ApiUser.Delete
+
+
+
+# Catch all, this will route any request into the controller path
+#
+#                    **** WARNING ****
+# Enabling this exposes any controller and function to the web.
+# ** This is a serious security issue if used online **
+#
+# For rapid development uncomment the following to add new controller.action endpoints
+# without having to add them to the routes table.
+# *       /:controller/:action                    :controller.:action
